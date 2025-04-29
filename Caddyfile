@@ -1,8 +1,4 @@
 neobrightsolutions.com {
-    reverse_proxy app:8000
-    encode gzip
-    log {
-        output stdout
-    }
-    tls automacaosiberia@gmail.com
+    reverse_proxy 127.0.0.1:8000
+    tls automacaosiberia@gmail.com  # Caddy irá gerenciar automaticamente o SSL
 }
