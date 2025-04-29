@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/playwright/python:v1.42.1
+FROM mcr.microsoft.com/playwright/python:v1.51.0-noble
 
 WORKDIR /app
 

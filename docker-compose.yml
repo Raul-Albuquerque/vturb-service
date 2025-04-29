@@ -2,13 +2,17 @@ version: "3.9"
 
 services:
   app:
-    build: .
+    image: mcr.microsoft.com/playwright/python:v1.43.0  # Use uma imagem Playwright disponível
     container_name: app
-    restart: always
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
     expose:
       - "8000"
     networks:
       - web
+    restart: always
 
   caddy:
     image: caddy:alpine
