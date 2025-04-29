@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: playwright-api
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: ./start.sh
+    envVars:
+      - key: PLAYER_USERNAME
+        value: seu@email.com
+      - key: PLAYER_PASSWORD
+        value: sua_senha

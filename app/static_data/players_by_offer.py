@@ -1,0 +1,42 @@
+PLAYERS_BY_OFFER = {
+    "PLR_ESP": ["680fc71747893d23a658722a"],
+    "TSR_ESP": [
+        "681070d988b2b65712c4bb54",
+        "6810711eba1253ea805abdb5",
+        "6810715e88b2b65712c4bba3",
+    ],
+    "LOV_ENG": ["6750f08f5265c7b99d8a708f"],
+    "MSG_ESP": [
+        "6809271ee81d292f6f2f57f9",
+        "6809282313b55a0695b18868",
+        "680929f4695d494dad8c5e42",
+        "68092cec6f8f4b5452b7a169",
+    ],
+    "TDB_ESP": [
+        "68091e1438de5bb8621a8a26",
+        "68091e636f8f4b5452b7927f",
+        "68091eb0695d494dad8c530a",
+        "680ed12781dbf26252257897",
+        "680ed130bdb44a29f1b8482a",
+        "680ed2bc17d1a06e748a9cf1",
+    ],
+    "LVF_ESP": ["68028a6b5cb5553c040f6ae5", "68028a9526efc34fe2bfbe01"],
+    "TMP_ESP": [
+        "680165a2d17b660114c61a3c",
+        "680165ffa9121b38fbb15a17",
+        "68016659d2ac1dec8e310426",
+    ],
+    "LVH_ESP": [
+        "67f3fd1506dd518b2f474038",
+        "680072119cec3cbd9b8b5d0c",
+        "68007211ebbbab2cc96a2fff",
+        "67f07da3bdab914c19aa985a",
+        "67f07dac5f4ceec86cc3fe04",
+        "67e1a15acedcc781f2f6e471",
+        "67e35fb4b4b5acd17d9e2ccf",
+        "67e453165939aba87f5115fa",
+        "679ab4d763a85e3ab900e4f4",
+        "67e35fcb15bf4ea88c56d373",
+        "67e44c141631ff55352adad8",
+    ],
+}
