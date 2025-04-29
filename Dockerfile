@@ -1,5 +1,4 @@
-# Dockerfile
-FROM mcr.microsoft.com/playwright/python:v1.43.1-jammy
+FROM mcr.microsoft.com/playwright/python:v1.42.1
 
 WORKDIR /app
 
