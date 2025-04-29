@@ -24,3 +24,8 @@ async def generate_report(day: str):
             message=f"Error: {str(e)}",
             status=400,
         )
+
+
+@app.get("/health")
+async def check_health():
+    return "Funcionando"
