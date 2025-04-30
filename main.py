@@ -1,8 +1,8 @@
+import requests
 from fastapi import FastAPI
 from datetime import datetime
 from app.vturb_client import get_all_player_data
-from app.core.helpers import get_date_range, get_all_players_id
-from app.static_data.players_by_offer import PLAYERS_BY_OFFER
+from app.core.helpers import get_date_range
 
 from app.models.report_model import ReportResponse
 from config import TIMEZONE
@@ -17,9 +17,16 @@ def read_root():
 
 @app.get("/report/{day}")
 def generate_report(day: str):
+    url = "https://automacao-nkh9m.ondigitalocean.app/api/v1/data/players_id"
     try:
+        response = requests.get(url)
+        if response.status_code != 200:
+            response = requests.get(url)
+            players_id_list = response.json()
+        if response.status_code == 200:
+            players_id_list = response.json()
+
         period = get_date_range(day)
-        players_id_list = get_all_players_id(players_by_offer=PLAYERS_BY_OFFER)
         result = get_all_player_data(period=period, player_ids=players_id_list)
         return result
     except Exception as e:
