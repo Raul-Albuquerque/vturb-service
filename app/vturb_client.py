@@ -20,6 +20,7 @@ def login_and_get_token(email, password):
 
         context = browser.new_context()
         page = context.new_page()
+        print("Página criada e contexto preparado.")
 
         token = None
         print("Página criada e contexto preparado.")
@@ -42,8 +43,10 @@ def login_and_get_token(email, password):
         page.on("response", handle_response)
 
         print("Acessando a página de login...")
-        page.goto("https://app.vturb.com")
+        page.goto("https://app.vturb.com", timeout=15000)
+        print("Página carregada.")
         page.fill('input[name="email"]', email)
+        print("Email preenchido.")
         page.fill('input[name="password"]', password)
         page.click('button[type="submit"]')
         print("Formulário de login preenchido e enviado.")
