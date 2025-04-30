@@ -16,11 +16,11 @@ def read_root():
 
 
 @app.get("/report/{day}")
-async def generate_report(day: str):
+def generate_report(day: str):
     try:
         period = get_date_range(day)
         players_id_list = get_all_players_id(players_by_offer=PLAYERS_BY_OFFER)
-        result = await get_all_player_data(period=period, player_ids=players_id_list)
+        result = get_all_player_data(period=period, player_ids=players_id_list)
         return result
     except Exception as e:
         return ReportResponse(
