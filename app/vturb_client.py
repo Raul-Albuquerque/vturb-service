@@ -9,6 +9,14 @@ from config import PLAYER_USERNAME, PLAYER_PASSWORD
 
 BASE_URL = "https://api.vturb.com.br"
 
+logging.basicConfig(
+    level=logging.DEBUG,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    handlers=[
+        logging.StreamHandler(),  # Grava no console
+    ],
+)
+
 
 async def login_and_get_token(email, password):
     logging.info(f"Iniciando login com o email: {email}")
