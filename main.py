@@ -10,6 +10,11 @@ from config import TIMEZONE
 app = FastAPI()
 
 
+@app.get("/")
+def read_root():
+    return {"message": "Olá, bem-vindo ao Neobright Solutions!"}
+
+
 @app.get("/report/{day}")
 async def generate_report(day: str):
     try:
