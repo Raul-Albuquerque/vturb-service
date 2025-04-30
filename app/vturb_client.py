@@ -12,31 +12,54 @@ BASE_URL = "https://api.vturb.com.br"
 
 
 def login_and_get_token(email, password):
+    print(f"Iniciando o login para o email: {email}")
     with sync_playwright() as p:
+        print("Iniciando o Playwright...")
         browser = p.chromium.launch(headless=True)
+        print("Navegador iniciado.")
+
         context = browser.new_context()
         page = context.new_page()
 
         token = None
+        print("Página criada e contexto preparado.")
 
         def handle_response(response):
             nonlocal token
+            print(f"Recebendo resposta de {response.url} com status {response.status}")
             if "auth/login.json" in response.url and response.status == 200:
                 try:
+                    print("Resposta de login recebida, tentando extrair o token.")
                     data = response.json()
                     token = data.get("token") or data.get("access_token")
-                except:
-                    pass
+                    if token:
+                        print(f"Token obtido: {token}")
+                    else:
+                        print("Token não encontrado na resposta.")
+                except Exception as e:
+                    print(f"Erro ao processar a resposta do login: {e}")
 
         page.on("response", handle_response)
 
+        print("Acessando a página de login...")
         page.goto("https://app.vturb.com")
         page.fill('input[name="email"]', email)
         page.fill('input[name="password"]', password)
         page.click('button[type="submit"]')
+        print("Formulário de login preenchido e enviado.")
+
+        print("Aguardando resposta...")
         page.wait_for_timeout(5000)
+        print("Tempo de espera finalizado.")
 
         browser.close()
+        print("Navegador fechado.")
+
+        if token:
+            print(f"Login bem-sucedido. Token: {token}")
+        else:
+            print("Falha no login. Nenhum token obtido.")
+
         return token
 
 
