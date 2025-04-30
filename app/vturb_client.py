@@ -15,7 +15,7 @@ def login_and_get_token(email, password):
     print(f"Iniciando o login para o email: {email}")
     with sync_playwright() as p:
         print("Iniciando o Playwright...")
-        browser = p.chromium.launch(headless=True)
+        browser = p.chromium.launch(headless=True, args=["--no-sandbox"])
         print("Navegador iniciado.")
 
         context = browser.new_context()
