@@ -48,6 +48,7 @@ def login_and_get_token(email, password):
         page.fill('input[name="email"]', email)
         print("Email preenchido.")
         page.fill('input[name="password"]', password)
+        print("Senha preenchida.")
         page.click('button[type="submit"]')
         print("Formulário de login preenchido e enviado.")
 
