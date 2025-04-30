@@ -11,6 +11,7 @@ BASE_URL = "https://api.vturb.com.br"
 
 
 async def login_and_get_token(email, password):
+    logging.info(f"Iniciando login com o email: {email}")
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True)
         context = await browser.new_context()
@@ -24,8 +25,8 @@ async def login_and_get_token(email, password):
                 try:
                     data = await response.json()
                     token = data.get("token") or data.get("access_token")
-                except:
-                    pass
+                except Exception as e:
+                    logging.error(f"Erro ao processar resposta de login: {e}")
 
         page.on("response", handle_response)
 
@@ -35,6 +36,12 @@ async def login_and_get_token(email, password):
         await page.click('button[type="submit"]')
         await page.wait_for_timeout(5000)
         await browser.close()
+
+        if token:
+            logging.info(f"Login bem-sucedido para {email}")
+        else:
+            logging.warning(f"Falha no login para {email}")
+
         return token
 
 
@@ -91,6 +98,7 @@ async def get_player_stats(player_id: str, token: str, period: dict):
 
 
 async def fetch_player_data(player_id: str, token: str, period: dict, max_retries=3):
+    logging.info(f"Iniciando a coleta de dados para o jogador {player_id}")
     for attempt in range(1, max_retries + 1):
         try:
             pitch, stats_data, views_data = (
@@ -115,6 +123,7 @@ async def fetch_player_data(player_id: str, token: str, period: dict, max_retrie
                 item.get("total_under_pitch", 0) for item in stats_list
             )
 
+            logging.info(f"Dados coletados com sucesso para o jogador {player_id}")
             return {
                 "player_id": player_id,
                 "name": pitch.get("name"),
@@ -130,6 +139,9 @@ async def fetch_player_data(player_id: str, token: str, period: dict, max_retrie
             )
             continue
 
+    logging.warning(
+        f"Falha ao coletar dados para o jogador {player_id} após {max_retries} tentativas"
+    )
     return {
         "player_id": player_id,
         "name": None,
