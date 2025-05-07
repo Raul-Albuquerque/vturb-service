@@ -102,7 +102,7 @@ def get_player_views(player_id: str, token: str, period: dict):
     }
 
     response = requests.post(url, headers=headers, json=payload)
-    return response.json().get("stats", []).get("views")
+    return response.json()
 
 
 def get_player_stats(player_id: str, token: str, period: dict):
@@ -146,7 +146,16 @@ def get_all_player_data(period: dict, player_ids: List[str]) -> ReportResponse:
                 views_data = get_player_views(player_id, token, period)
 
                 stats_list = stats_data.get("stats", [])
-                total_uniq_device_events = views_data.get("totalUniqDeviceEvents", 0)
+                total_uniq_device_events = (
+                    views_data.get("stats", [])
+                    .get("views")
+                    .get("totalUniqDeviceEvents", 0)
+                )
+                total_uniq_device_plays = (
+                    views_data.get("stats", [])
+                    .get("plays")
+                    .get("totalUniqDeviceEvents", 0)
+                )
 
                 if (
                     not pitch.get("name")
@@ -172,6 +181,7 @@ def get_all_player_data(period: dict, player_ids: List[str]) -> ReportResponse:
                     "total_over_pitch": total_over_pitch,
                     "total_under_pitch": total_under_pitch,
                     "error": False,
+                    "totalUniqDevicePlays": total_uniq_device_plays,
                 }
 
             except Exception as e:
